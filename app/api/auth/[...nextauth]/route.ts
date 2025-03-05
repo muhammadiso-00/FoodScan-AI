@@ -40,11 +40,6 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    // Add error callback to the callbacks section instead
-    async error(error, req, res) {
-      console.error('Auth error callback:', error);
-      return '/login?error=' + encodeURIComponent(error.toString());
-    },
   },
   events: {
     async signIn(message) {

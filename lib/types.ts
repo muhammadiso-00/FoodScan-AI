@@ -1,12 +1,12 @@
 export interface User {
-    uid: string;
+    uid?: string;
     email: string | null;
     displayName: string | null;
     photoURL: string | null;
   }
 
   export interface FoodEntry {
-    id: string;
+    id?: string;
     userId: string;
     foodName?: string;
     imageUrl?: string;
@@ -15,7 +15,7 @@ export interface User {
   }
 
   export interface FoodAnalysis {
-    id:string;
+    id?:string;
     food_name: string;
     protein_content: string;
     fat_content: string;

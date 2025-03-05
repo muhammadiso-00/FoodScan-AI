@@ -7,7 +7,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { motion } from "framer-motion";
 
 export interface FoodAnalysis {
-  id: string;
+  id?: string;
   food_name: string;
   protein_content: string;
   fat_content: string;
@@ -27,14 +27,15 @@ export default function FoodAnalysisPage() {
   const [analysisData, setAnalysisData] = useState<FoodAnalysis | null>(null);
 
   useEffect(() => {
-    // Retrieve analysis data from localStorage
-    const storedAnalysis = localStorage.getItem('analysis');
-    if (storedAnalysis) {
-      try {
-        const analysisData = JSON.parse(storedAnalysis) as FoodAnalysis;
-        setAnalysisData(analysisData);
-      } catch (error) {
-        console.error('Error parsing analysis data from localStorage:', error);
+    if (typeof window !== 'undefined') {
+      const storedAnalysis = localStorage.getItem('analysis');
+      if (storedAnalysis) {
+        try {
+          const analysisData = JSON.parse(storedAnalysis) as FoodAnalysis;
+          setAnalysisData(analysisData);
+        } catch (error) {
+          console.error('Error parsing analysis data from localStorage:', error);
+        }
       }
     }
   }, []);
@@ -217,36 +218,7 @@ export default function FoodAnalysisPage() {
         </Card>
       </motion.div>
 
-      {/* Progress Bars */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1.6 }}
-        className="mt-8"
-      >
-        <Card className="bg-white bg-opacity-5 backdrop-blur-lg">
-          <CardHeader>
-            <CardTitle>Nutrient Progress</CardTitle>
-            <CardDescription>Daily intake progress</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <p>Protein</p>
-                <Progress value={(analysisData.protein || 0) * 10} className="h-2" />
-              </div>
-              <div>
-                <p>Fat</p>
-                <Progress value={(analysisData.fat || 0) * 10} className="h-2" />
-              </div>
-              <div>
-                <p>Carbs</p>
-                <Progress value={(analysisData.carbs || 0) * 10} className="h-2" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
+     
     </div>
   );
 }
