@@ -15,6 +15,7 @@ const AuthContext = createContext<AuthContextType>({
   loading: true,
 });
 
+console.log("")
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
